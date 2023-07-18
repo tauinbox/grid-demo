@@ -1,0 +1,19 @@
+<div class="dropdown-menu">
+  <div class="dropdown-menu__title">Add/remove columns</div>
+  <div class="dropdown-menu__subtitle">
+    Use upto {{ fields.length }} columns in this table
+  </div>
+
+  <form class="dropdown-menu__form" [formGroup]="formGroup">
+    <div *ngFor="let colDef of fields">
+      <input
+        type="checkbox"
+        [formControlName]="colDef.field"
+        [id]="colDef.field"
+      />
+      <label class="dropdown-menu__form_label" [for]="colDef.field">{{
+        colDef.headerName
+      }}</label>
+    </div>
+  </form>
+</div>

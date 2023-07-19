@@ -6,5 +6,6 @@ export const routes: Routes = [
     path: 'exercise',
     loadComponent: () =>
       import('./exercise/exercise.component').then((c) => c.ExerciseComponent),
+    title: 'Grid demo',
   },
 ];

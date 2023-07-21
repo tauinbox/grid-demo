@@ -10,7 +10,10 @@ import { ExerciseDescriptionComponent } from './exercise-description/exercise-de
 import { EmptyStateComponent } from '../shared/empty-state/empty-state.component';
 import { RowItemMenuDropdownComponent } from './row-item-menu-dropdown/row-item-menu-dropdown.component';
 import { MapPipe } from '../shared/map.pipe';
-import { GridComponent } from '../shared/grid/grid.component';
+import {
+  GridComponent,
+  TemplateContextTypeDirective,
+} from '../shared/grid/grid.component';
 import { ColDef, GridRow } from '../shared/grid/grid.types';
 import { CustomerEvent, EventStatus, mockData, User } from './excercise.types';
 
@@ -27,6 +30,7 @@ const getStatusToChange = (status: EventStatus) =>
     EmptyStateComponent,
     RowItemMenuDropdownComponent,
     MapPipe,
+    TemplateContextTypeDirective,
   ],
   templateUrl: './exercise.component.html',
   styleUrls: ['./exercise.component.scss'],

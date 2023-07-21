@@ -1,6 +1,7 @@
 export type User = {
   firstName: string;
   lastName: string;
+  avatarUrl: string;
 };
 
 export type CustomerEvent = {

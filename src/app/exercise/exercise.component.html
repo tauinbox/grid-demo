@@ -7,13 +7,13 @@
   [rowItemMenu]="rowItemMenu"
 ></wkt-grid>
 
-<ng-template #userCellTemplate let-cellValue>
+<ng-template #userCellTemplate let-cellValue [typedTemplate]="userTemplate">
   <div class="user">
     <img [src]="cellValue.avatarUrl" alt="avatar" />
     <span>{{ cellValue.firstName }} {{ cellValue.lastName }}</span>
   </div>
 </ng-template>
-<ng-template #statusCellTemplate let-cellValue>
+<ng-template #statusCellTemplate let-cellValue [typedTemplate]="statusTemplate">
   <span [ngStyle]="{ color: cellValue === 'Pending' ? 'orange' : 'inherit' }">{{
     cellValue
   }}</span>

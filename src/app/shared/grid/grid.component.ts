@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Directive,
   Input,
   TemplateRef,
 } from '@angular/core';
@@ -20,6 +21,20 @@ import {
   VisibleColumns,
 } from './grid.types';
 import { DetectHoverDirective } from './detect-hover.directive';
+
+@Directive({
+  selector: 'ng-template[typedTemplate]',
+  standalone: true,
+})
+export class TemplateContextTypeDirective<T> {
+  @Input('typedTemplate') templateRef?: TemplateRef<T>;
+  static ngTemplateContextGuard<T>(
+    dir: TemplateContextTypeDirective<T>,
+    ctx: unknown,
+  ): ctx is { $implicit: T } {
+    return true;
+  }
+}
 
 @Component({
   selector: 'wkt-grid',
@@ -61,7 +76,7 @@ export class GridComponent<T> {
     this.colDefsSubject$.next(value);
   }
   @Input() rowItemMenu: TemplateRef<RowItemMenu<T>> | null = null;
-  @Input() emptyState?: TemplateRef<any>;
+  @Input() emptyState?: TemplateRef<void>;
 
   headers$ = this.activeColDefs$.pipe(
     map((colDefs) => colDefs.map((col) => col.headerName)),

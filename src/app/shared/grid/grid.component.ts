@@ -18,6 +18,7 @@ import {
   GridRow,
   VisibleColumns,
 } from './grid.types';
+import { DetectHoverDirective } from './detect-hover.directive';
 
 @Component({
   selector: 'wkt-grid',
@@ -29,6 +30,7 @@ import {
     DropdownTriggerForDirective,
     HeaderMenuDropdownComponent,
     RowItemMenuDropdownComponent,
+    DetectHoverDirective,
   ],
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss'],

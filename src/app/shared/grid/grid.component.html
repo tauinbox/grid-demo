@@ -2,11 +2,21 @@
   class="grid-section"
   *ngIf="gridRows$ | async as gridRows; else emptyState ?? defaultEmptyState"
 >
-  <table class="table" ta='exercise-grid'>
-    <tr class="table__row table__row_header" ta='exercise-grid__row'>
-      <th *ngFor="let header of headers$ | async" ta='exercise-grid__header'>{{ header }}</th>
-      <th class="menu-item" ta='exercise-grid__header-context-menu'>
-        <button [wktDropdownTriggerFor]="headerDropdown" class="menu-trigger" ta='exercise-grid__header-context-menu-trigger'>
+  <table class="table" ta="exercise-grid">
+    <tr
+      class="table__row table__row_header"
+      ta="exercise-grid__row"
+      wktDetectHover
+    >
+      <th *ngFor="let header of headers$ | async" ta="exercise-grid__header">
+        {{ header }}
+      </th>
+      <th class="menu-item" ta="exercise-grid__header-context-menu">
+        <button
+          [wktDropdownTriggerFor]="headerDropdown"
+          class="menu-trigger"
+          ta="exercise-grid__header-context-menu-trigger"
+        >
           <ng-container [ngTemplateOutlet]="threeDots"></ng-container>
         </button>
         <wkt-drop-down-menu #headerDropdown>
@@ -17,8 +27,16 @@
         </wkt-drop-down-menu>
       </th>
     </tr>
-    <tr *ngFor="let row of gridRows; trackBy: trackByRowFn" class="table__row" ta='exercise-grid__row'>
-      <td *ngFor="let cell of row; trackBy: trackByCellFn"  ta='exercise-grid__cell'>
+    <tr
+      *ngFor="let row of gridRows; trackBy: trackByRowFn"
+      class="table__row"
+      ta="exercise-grid__row"
+      wktDetectHover
+    >
+      <td
+        *ngFor="let cell of row; trackBy: trackByCellFn"
+        ta="exercise-grid__cell"
+      >
         <ng-container
           [ngTemplateOutlet]="cell.cellTemplate ?? simpleTemplate"
           [ngTemplateOutletContext]="{ $implicit: cell.value }"
@@ -27,13 +45,13 @@
           ><span>{{ cellValue }}</span></ng-template
         >
       </td>
-      <td class="menu-item" ta='exercise-grid__row-context-menu'>
+      <td class="menu-item" ta="exercise-grid__row-context-menu">
         <ng-container *ngIf="rowItemMenu">
           <button
             #wktDropdown="wktDropdown"
             [wktDropdownTriggerFor]="rowItemDropdown"
             class="menu-trigger"
-            ta='exercise-grid__row-context-menu-trigger'
+            ta="exercise-grid__row-context-menu-trigger"
           >
             <ng-container [ngTemplateOutlet]="threeDots"></ng-container>
           </button>

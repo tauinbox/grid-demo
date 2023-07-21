@@ -1,4 +1,5 @@
-import { TemplateRef } from '@angular/core';
+import { EventEmitter, TemplateRef } from '@angular/core';
+import { Observable } from 'rxjs';
 
 export type CellValue<T> = T[ColDef<T>['field']];
 export type ColDef<T> = {
@@ -19,3 +20,8 @@ export type GridCell<T> = {
   value: CellValue<T> | string;
 };
 export type GridRow<T> = GridCell<T>[];
+export type RowItemMenu<T> = {
+  $implicit: GridRow<T>;
+  closeEmitter: EventEmitter<void>;
+  closed$: Observable<void>;
+};

@@ -16,6 +16,7 @@ import {
   ColDef,
   GridCell,
   GridRow,
+  RowItemMenu,
   VisibleColumns,
 } from './grid.types';
 import { DetectHoverDirective } from './detect-hover.directive';
@@ -59,7 +60,7 @@ export class GridComponent<T> {
   @Input({ required: true }) set colDefs(value: ColDef<T>[]) {
     this.colDefsSubject$.next(value);
   }
-  @Input() rowItemMenu: TemplateRef<any> | null = null;
+  @Input() rowItemMenu: TemplateRef<RowItemMenu<T>> | null = null;
   @Input() emptyState?: TemplateRef<any>;
 
   headers$ = this.activeColDefs$.pipe(

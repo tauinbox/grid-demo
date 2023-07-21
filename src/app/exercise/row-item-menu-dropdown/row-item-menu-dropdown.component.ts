@@ -28,19 +28,14 @@ export class RowItemMenuDropdownComponent implements OnInit {
   @Input({ required: true }) row!: GridRow<CustomerEvent>;
   @Input() statusToChange!: string;
   @Input({ required: true }) closed$!: Observable<void>;
-  @Output() closed = new EventEmitter<void>();
-  @Output() toggleStatus = new EventEmitter<GridRow<CustomerEvent>>();
-  @Output() deleteCustomer = new EventEmitter<GridRow<CustomerEvent>>();
+  @Output() private closed = new EventEmitter<void>();
+  @Output() private toggleStatus = new EventEmitter<GridRow<CustomerEvent>>();
+  @Output() private deleteCustomer = new EventEmitter<GridRow<CustomerEvent>>();
 
   private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
 
   confirmDeletion = false;
-
-  onDeleteCustomer() {
-    this.deleteCustomer.emit(this.row);
-    this.closed.emit();
-  }
 
   ngOnInit(): void {
     this.closed$
@@ -52,5 +47,19 @@ export class RowItemMenuDropdownComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe();
+  }
+
+  onToggleStatus() {
+    this.toggleStatus.emit(this.row);
+    this.closeMenu();
+  }
+
+  onDeleteCustomer() {
+    this.deleteCustomer.emit(this.row);
+    this.closeMenu();
+  }
+
+  closeMenu() {
+    this.closed.emit();
   }
 }

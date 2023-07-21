@@ -1,5 +1,5 @@
 <div class="dropdown-menu">
-  <div (click)="toggleStatus.emit(row)" class="dropdown-menu__item">
+  <div (click)="onToggleStatus()" class="dropdown-menu__item">
     <div class="dropdown-menu__title">
       Change status to {{ statusToChange }}
     </div>
@@ -30,7 +30,7 @@
       </div>
     </div>
   </ng-template>
-  <div class="dropdown-menu__item">
+  <div class="dropdown-menu__item" (click)='closeMenu()'>
     <a href="https://www.workato.com/support" target="_blank">
       <div class="dropdown-menu__title">Help</div>
       <div class="dropdown-menu__subtitle">Opens www.workato.com/support</div>

@@ -18,6 +18,7 @@ tr {
     &.hovered {
       .menu-trigger {
         opacity: 1;
+        transition: opacity 0.5s;
       }
     }
 
@@ -42,11 +43,7 @@ tr {
 }
 
 .menu-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 45px;
-  margin-left: auto;
 }
 
 .menu-trigger {
@@ -57,4 +54,5 @@ tr {
   cursor: pointer;
   scale: 1.7;
   color: rgba(0, 0, 0, 0.2);
+  transition: opacity 0.2s;
 }

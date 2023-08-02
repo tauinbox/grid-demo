@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ExerciseComponent } from './exercise.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ExerciseComponent', () => {
   let component: ExerciseComponent;
@@ -8,7 +8,7 @@ describe('ExerciseComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ExerciseComponent],
+      imports: [NoopAnimationsModule, ExerciseComponent],
     });
     fixture = TestBed.createComponent(ExerciseComponent);
     component = fixture.componentInstance;

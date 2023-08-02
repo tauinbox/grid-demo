@@ -5,7 +5,7 @@ import { HeaderMenuDropdownHarness } from './testing/header-menu-dropdown.harnes
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 
 @Component({
-  template: `<wkt-header-menu-drop-down
+  template: ` <wkt-header-menu-drop-down
     [colDefs]="colDefs"
     (changes)="onColumnSelectionChanges()"
   ></wkt-header-menu-drop-down>`,

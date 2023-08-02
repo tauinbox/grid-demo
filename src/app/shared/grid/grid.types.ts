@@ -9,17 +9,14 @@ export type ColDef<T> = {
   valueFormatter?(data: CellValue<T> | string): string;
   cellTemplate?: TemplateRef<CellValue<T>>;
   hide?: boolean;
-  isID?: boolean;
 };
 export type VisibleColumns<T> = Record<keyof T, boolean>;
 export type GridCell<T> = {
-  rowId?: string;
-  rowIndex: number;
   cellTemplate?: TemplateRef<CellValue<T>>;
   key: keyof T;
   value: CellValue<T> | string;
 };
-export type GridRow<T> = GridCell<T>[];
+export type GridRow<T> = { dataRowIndex: number; cells: GridCell<T>[] };
 export type RowItemMenu<T> = {
   $implicit: GridRow<T>;
   closeEmitter: EventEmitter<void>;

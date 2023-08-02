@@ -42,6 +42,7 @@ export class HeaderMenuDropdownComponent<T> implements OnInit {
       }, {} as VisibleColumns<T>),
     );
   }
+
   @Output() changes = new EventEmitter<VisibleColumns<T>>();
 
   ngOnInit(): void {

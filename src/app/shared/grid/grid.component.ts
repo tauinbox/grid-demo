@@ -21,6 +21,10 @@ import {
   VisibleColumns,
 } from './grid.types';
 import { DetectHoverDirective } from './detect-hover.directive';
+import {
+  fadeInAnimation,
+  fadeOutAnimation,
+} from '../animations/fade.animation';
 
 @Directive({
   selector: 'ng-template[typedTemplate]',
@@ -28,6 +32,7 @@ import { DetectHoverDirective } from './detect-hover.directive';
 })
 export class TemplateContextTypeDirective<T> {
   @Input('typedTemplate') templateRef?: TemplateRef<T>;
+
   static ngTemplateContextGuard<T>(
     dir: TemplateContextTypeDirective<T>,
     ctx: unknown,
@@ -50,6 +55,7 @@ export class TemplateContextTypeDirective<T> {
   ],
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss'],
+  animations: [fadeInAnimation, fadeOutAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GridComponent<T> {
@@ -72,9 +78,11 @@ export class GridComponent<T> {
   @Input({ required: true }) set rowData(value: T[]) {
     this.rowDataSubject$.next(value);
   }
+
   @Input({ required: true }) set colDefs(value: ColDef<T>[]) {
     this.colDefsSubject$.next(value);
   }
+
   @Input() rowItemMenu: TemplateRef<RowItemMenu<T>> | null = null;
   @Input() emptyState?: TemplateRef<void>;
 
@@ -82,38 +90,38 @@ export class GridComponent<T> {
     map((colDefs) => colDefs.map((col) => col.headerName)),
   );
   gridRows$: Observable<GridRow<T>[] | null> = combineLatest([
-    this.rowDataSubject$,
+    this.rowDataSubject$.pipe(
+      map((rowData) =>
+        rowData.map((row, index) => ({ row, dataRowIndex: index })),
+      ),
+    ),
     this.activeColDefs$,
   ]).pipe(
-    map(([rowData, colDefs]) =>
-      !!rowData.length && !!colDefs.length
-        ? rowData.map((row, rowIndex) =>
-            colDefs.map((col) => {
-              let id: string | undefined;
-              let value: CellValue<T> | string = row[col.field];
+    map(([rowItems, colDefs]) =>
+      !!rowItems.length && !!colDefs.length
+        ? rowItems.map((rowItem) => ({
+            cells: colDefs.map((col) => {
+              let value: CellValue<T> | string = rowItem.row[col.field];
 
               if (col.valueGetter) value = col.valueGetter(value);
               if (col.valueFormatter) value = col.valueFormatter(value);
-              if (col.isID) id = String(row[col.field]);
 
               const cell: GridCell<T> = {
-                rowIndex,
                 cellTemplate: col.cellTemplate,
                 key: col.field,
                 value,
               };
 
-              if (id) cell.rowId = id;
-
               return cell;
             }),
-          )
+            dataRowIndex: rowItem.dataRowIndex,
+          }))
         : null,
     ),
   );
 
   trackByRowFn(index: number, row: GridRow<T>) {
-    return row[0].rowId ?? String(row[0].rowIndex);
+    return row.dataRowIndex;
   }
 
   trackByCellFn(index: number, cell: GridCell<T>) {

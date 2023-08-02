@@ -10,9 +10,10 @@ import {
 import { ColDef } from './grid.types';
 import { GridComponentHarness } from './testing/grid.harness';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
-  template: `<wkt-grid [rowData]="data" [colDefs]="colDefs"></wkt-grid>`,
+  template: ` <wkt-grid [rowData]="data" [colDefs]="colDefs"></wkt-grid>`,
   styles: [
     `
       :host {
@@ -25,12 +26,6 @@ import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 class TestHostComponent {
   data: CustomerEvent[] = mockData;
   colDefs: ColDef<CustomerEvent>[] = [
-    {
-      field: 'id',
-      headerName: 'ID',
-      isID: true,
-      hide: true,
-    },
     {
       field: 'date',
       headerName: 'Date',
@@ -48,6 +43,7 @@ class TestHostComponent {
           .trim()
           .toLowerCase()}`;
       },
+      hide: true,
     },
     { field: 'name', headerName: 'Name' },
     { field: 'folder', headerName: 'Folder' },
@@ -71,7 +67,7 @@ describe('GridComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [GridComponent],
+      imports: [NoopAnimationsModule, GridComponent],
       declarations: [TestHostComponent],
       providers: [],
       teardown: { destroyAfterEach: false },
@@ -91,9 +87,8 @@ describe('GridComponent', () => {
   });
 
   it('should render headers', async () => {
-    expect(await harness.headersCount()).toEqual(5);
+    expect(await harness.headersCount()).toEqual(4);
     expect(await harness.headers()).toEqual([
-      'Date',
       'Name',
       'Folder',
       'User',
@@ -101,24 +96,23 @@ describe('GridComponent', () => {
     ]);
   });
 
-  it('should not render ID column by default', async () => {
+  it('should not render Date column by default', async () => {
     expect(await harness.headers()).not.toContain('ID');
 
     await harness.openHeaderContextMenu();
     const contextMenu = await harness.headerContextMenu();
     expect(contextMenu).toBeTruthy();
 
-    const idField = await contextMenu?.getFieldLabelByText('ID');
+    const idField = await contextMenu?.getFieldLabelByText('Date');
     await idField?.click();
     await fixture.detectChanges();
 
-    expect(await harness.headers()).toContain('ID');
+    expect(await harness.headers()).toContain('Date');
     await harness.grid().then((g) => g.click());
   });
 
   it('should allow column selection', async () => {
     expect(await harness.headers()).toEqual([
-      'Date',
       'Name',
       'Folder',
       'User',
@@ -135,6 +129,6 @@ describe('GridComponent', () => {
     await field?.click();
     await fixture.detectChanges();
 
-    expect(await harness.headers()).toEqual(['Date', 'Folder', 'Status']);
+    expect(await harness.headers()).toEqual(['Folder', 'Status']);
   });
 });

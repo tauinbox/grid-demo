@@ -16,6 +16,7 @@ import {
 } from '../shared/grid/grid.component';
 import { ColDef, GridRow } from '../shared/grid/grid.types';
 import { CustomerEvent, EventStatus, mockData, User } from './excercise.types';
+import { fadeInAnimation } from '../shared/animations/fade.animation';
 
 const getStatusToChange = (status: EventStatus) =>
   status === EventStatus.COMPLETE ? EventStatus.PENDING : EventStatus.COMPLETE;
@@ -34,6 +35,7 @@ const getStatusToChange = (status: EventStatus) =>
   ],
   templateUrl: './exercise.component.html',
   styleUrls: ['./exercise.component.scss'],
+  animations: [fadeInAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExerciseComponent implements OnInit {
@@ -49,12 +51,6 @@ export class ExerciseComponent implements OnInit {
 
   ngOnInit(): void {
     this.colDefs = [
-      {
-        field: 'id',
-        headerName: 'ID',
-        isID: true,
-        hide: true,
-      },
       {
         field: 'date',
         headerName: 'Date',
@@ -87,22 +83,20 @@ export class ExerciseComponent implements OnInit {
   }
 
   getStatusToChange(row: GridRow<CustomerEvent>): string {
-    const currentStatus = row.find((c) => c.key === 'status')?.value;
+    const currentStatus = row.cells.find((c) => c.key === 'status')?.value;
     return currentStatus === 'Complete' ? 'pending' : 'complete';
   }
 
   onToggleStatus(row: GridRow<CustomerEvent>) {
-    const rowIndex = row[0].rowIndex;
     this.data = this.data.map((item, index) => {
-      if (index === rowIndex)
+      if (index === row.dataRowIndex)
         return { ...item, status: getStatusToChange(item.status) };
       return item;
     });
   }
 
   onDeleteCustomer(row: GridRow<CustomerEvent>) {
-    const rowIndex = row[0].rowIndex;
-    this.data = this.data.filter((item, index) => index !== rowIndex);
+    this.data = this.data.filter((item, index) => index !== row.dataRowIndex);
   }
 
   onAddData() {

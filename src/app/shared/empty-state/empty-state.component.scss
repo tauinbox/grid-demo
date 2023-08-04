@@ -1,0 +1,33 @@
+.empty-state {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: white;
+    outline: var(--border-color) dashed 2px;
+    border-radius: 3px;
+    text-align: center;
+    flex-wrap: wrap;
+    padding: 65px;
+  }
+
+  &__item {
+    width: 100%;
+  }
+
+  &__title {
+    font-size: 33px;
+    line-height: 26px;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+
+  &__description {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  &__action {
+    margin-top: 24px;
+  }
+}

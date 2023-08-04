@@ -1,0 +1,58 @@
+.grid-section {
+  display: flex;
+}
+
+table,
+tr {
+  border: 2px solid var(--border-color);
+  border-collapse: collapse;
+}
+
+.table {
+  font-size: 20px;
+  flex: 1;
+
+  &__row {
+    background-color: white;
+
+    &.hovered {
+      .menu-trigger {
+        opacity: 1;
+        transition: opacity 0.5s;
+      }
+    }
+
+    td,
+    th {
+      padding: 12px;
+      height: 42px;
+      &:not(.menu-item) {
+        min-width: 224px;
+      }
+    }
+
+    th {
+      text-align: left;
+    }
+
+    &_header {
+      background-color: #f2f2f2;
+      color: #938e8e;
+    }
+  }
+}
+
+.menu-item {
+  width: 45px;
+}
+
+.menu-trigger {
+  opacity: 0;
+  display: flex;
+  border: none;
+  background: inherit;
+  cursor: pointer;
+  scale: 1.7;
+  color: rgba(0, 0, 0, 0.2);
+  transition: opacity 0.2s;
+}

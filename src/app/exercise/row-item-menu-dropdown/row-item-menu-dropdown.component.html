@@ -1,0 +1,39 @@
+<div class="dropdown-menu">
+  <div (click)="onToggleStatus()" class="dropdown-menu__item">
+    <div class="dropdown-menu__title">
+      Change status to {{ statusToChange }}
+    </div>
+    <div class="dropdown-menu__subtitle">Tweak status to fit your use case</div>
+  </div>
+  <div
+    *ngIf="!confirmDeletion; else confirmTemplate"
+    (click)="confirmDeletion = true"
+    class="dropdown-menu__item"
+  >
+    <div class="dropdown-menu__title">Delete customer</div>
+    <div class="dropdown-menu__subtitle">
+      Delete all data for this customer<br />This action CANNOT be undone
+    </div>
+  </div>
+  <ng-template #confirmTemplate>
+    <div class="dropdown-menu__item">
+      <div class="dropdown-menu__title dropdown-menu__title_warn">
+        Are you sure you want to permanently delete customer?
+      </div>
+      <div class="action-buttons">
+        <button (click)="confirmDeletion = false" class="btn btn-basic">
+          Cancel
+        </button>
+        <button (click)="onDeleteCustomer()" class="btn btn-warn">
+          Delete data
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <div class="dropdown-menu__item" (click)="closeMenu()">
+    <a href="http://fakelink.test/" target="_blank">
+      <div class="dropdown-menu__title">Help</div>
+      <div class="dropdown-menu__subtitle">Opens support page</div>
+    </a>
+  </div>
+</div>

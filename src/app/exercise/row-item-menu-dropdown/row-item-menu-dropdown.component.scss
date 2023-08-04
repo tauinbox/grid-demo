@@ -1,0 +1,42 @@
+.dropdown-menu {
+  &__item {
+    padding: 16px 36px;
+    cursor: pointer;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    &:hover {
+      background-color: #fafafa;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--main-text-color);
+    }
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: bold;
+
+    &_warn {
+      color: #c82506;
+    }
+  }
+
+  &__subtitle {
+    color: var(--subtitle-text-color);
+  }
+}
+
+.action-buttons {
+  margin-top: 12px;
+
+  button {
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
+  }
+}

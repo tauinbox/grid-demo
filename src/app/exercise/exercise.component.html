@@ -1,0 +1,50 @@
+<wkt-exercise-description></wkt-exercise-description>
+<wkt-grid
+  class="container"
+  [rowData]="data"
+  [colDefs]="colDefs"
+  [emptyState]="emptyState"
+  [rowItemMenu]="rowItemMenu"
+></wkt-grid>
+
+<ng-template #userCellTemplate let-cellValue [typedTemplate]="userTemplate">
+  <div class="user">
+    <img [src]="cellValue.avatarUrl" alt="avatar" />
+    <span>{{ cellValue.firstName }} {{ cellValue.lastName }}</span>
+  </div>
+</ng-template>
+<ng-template #statusCellTemplate let-cellValue [typedTemplate]="statusTemplate">
+  <span [ngStyle]="{ color: cellValue === 'Pending' ? 'orange' : 'inherit' }">{{
+    cellValue
+  }}</span>
+</ng-template>
+
+<ng-template #emptyState>
+  <wkt-empty-state @fadeIn>
+    <span empty-state-title>It's empty in here...</span>
+    <span empty-state-description
+      >This table seems to be empty right now. Add some data to see what this<br />
+      experience could look like.
+      <a href="" target="_blank">Learn&nbsp;more</a></span
+    >
+    <button (click)="onAddData()" empty-state-action class="btn btn-lg">
+      Add Data
+    </button>
+  </wkt-empty-state>
+</ng-template>
+
+<ng-template
+  #rowItemMenu
+  let-row
+  let-closeEmitter="closeEmitter"
+  let-closed$="closed$"
+>
+  <wkt-row-item-menu-dropdown
+    [row]="row"
+    [closed$]="closed$"
+    [statusToChange]="row | map: getStatusToChange"
+    (toggleStatus)="onToggleStatus($event)"
+    (deleteCustomer)="onDeleteCustomer($event)"
+    (closed)="closeEmitter.emit()"
+  ></wkt-row-item-menu-dropdown>
+</ng-template>

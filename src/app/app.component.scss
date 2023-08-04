@@ -1,0 +1,23 @@
+:host {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background-color: black;
+  color: white;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-top: var(--header-height);
+  overflow: auto;
+}

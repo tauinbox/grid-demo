@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+@import "styles/layout/index";
+@import "@angular/cdk/overlay-prebuilt.css";
+
+body {
+  --main-text-color: rgba(0, 0, 0, 0.7);
+  --subtitle-text-color: rgba(0, 0, 0, 0.5);
+  --border-color: rgba(0, 0, 0, 0.1);
+  --header-height: 70px;
+
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  color: var(--main-text-color);
+}
+
+.container {
+  padding: 0 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    padding: 0 100px;
+  }
+}
+
+@media screen and (min-width: 1366px) {
+  .container {
+    padding: 0 200px;
+  }
+}
